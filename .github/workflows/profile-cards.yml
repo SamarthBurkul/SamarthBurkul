@@ -1,0 +1,25 @@
+name: GitHub Profile Summary Cards
+
+on:
+  schedule:
+    - cron: "0 0 * * *" # daily at 00:00 UTC
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: generate-github-profile-summary-cards
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: vn7n24fzkq/github-profile-summary-cards@release
+        env:
+          # Built-in token works with contents: write. To include private-repo
+          # contributions, create a PAT secret SUMMARY_GITHUB_TOKEN and use it here.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          USERNAME: SamarthBurkul
+          BRANCH_NAME: "main"
+          TIME_ZONE: "Asia/Kolkata"
